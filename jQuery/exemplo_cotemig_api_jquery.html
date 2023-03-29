@@ -1,0 +1,36 @@
+<html>
+<head>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script>
+var USERNAME = 'USUARIO';
+var PASSWORD = 'SENHA';
+
+$( document ).ready(function() {
+	$.ajax({
+		type: "GET",
+		url: "https://api.cotemig.com.br/v1/perfil",
+		headers: {
+			"Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
+		},
+		success: function(data){
+			console.log(data);
+			$("#corpo").empty().append("Usuário: " + data.usuario + "<br>Nome: " + data.nome);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			console.log(jqXHR);
+			$("#corpo").empty().append("Erro #" + jqXHR.responseJSON.erro + ": " + jqXHR.responseJSON.detalhes);
+		}
+	}); 
+});
+</script>
+</head>
+<body>
+<h2>Dados do usuário:</h2>
+<div id="corpo">
+
+</div>
+</body>
+</html>
